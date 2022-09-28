@@ -1,6 +1,6 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { conectMongoDB } from '../../middleware/conectMongoDB';
+import { conectMongoDB } from '../../middleware/conectMongoDB.middleware';
 import type { RespostaPadraoMsg } from '../../types/RespostaPadraoMsg.type';
 import md5 from 'md5';
 import { UsuarioModel } from '../../models/UsuarioModel';
@@ -23,6 +23,7 @@ const endpointLogin = async (
         if (usuariosEncontrados && usuariosEncontrados.length > 0) {
             const usuarioEncontrado = usuariosEncontrados[0];
 
+            //cria token
             const token = jwt.sign({_id: usuarioEncontrado._id}, CHAVE_JWT)
 
             return res.status(200).json({
